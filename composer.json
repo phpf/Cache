@@ -1,0 +1,24 @@
+{
+	"name": "phpf/cache",
+	"type": "library",
+	"description": "Phpf Cache package",
+	"keywords": ["Cache", "Object Cache"],
+	"homepage": "https://github.com/phpf/Cache",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "The PHPf Developer",
+			"email": "wellspeterson@live.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"phpf/util": "dev-master"
+	},
+	"autoload": {
+		"psr-0": {
+			"Phpf\\Cache\\": "src/"
+		}
+	},
+	"minimum-stability": "dev"
+}
