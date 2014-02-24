@@ -31,15 +31,6 @@ abstract class AbstractController {
 		$this->unserializer = function_exists('igbinary_unserialize') ? 'igbinary_unserialize' : 'unserialize';
 	}
 	
-	public static function __callStatic( $func, $args ){
-		
-		$_this = static::i();
-		
-		if ( is_callable(array($_this, $func)) ){
-			return call_object($_this, $func, $args);
-		}
-	}
-	
 	abstract public function getEngine();
 	
 	abstract public function getPrefix( $group = self::DEFAULT_GROUP );
