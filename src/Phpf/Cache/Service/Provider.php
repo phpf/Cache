@@ -2,29 +2,28 @@
 
 namespace Phpf\Cache\Service;
 
+use Phpf\Cache\Cache;
+
 class Provider implements \Phpf\Service\Provider {
 	
 	public function provide(){
 		
-		$base = dirname(__DIR__);		
+		$base = dirname(__DIR__);
 		
-		require $base . '/Controllers/Abstract.php';	
+		require $base . '/Driver/AbstractDriver.php';	
 		
 		if ( function_exists('xcache_get') ){
-			require $base . '/Controllers/XCache.php';
-			class_alias( 'Phpf\Cache\XCache', 'Cache' );
-	//	} elseif ( function_exists('apc_fetch') ){
-			// use APC...
+			$driver = new \Phpf\Cache\Driver\XCacheDriver;
 		} else {
-			require $base . '/Controllers/Static.php';
-			class_alias( 'Phpf\Cache\StaticController', 'Cache' );
+			$driver = new \Phpf\Cache\Driver\StaticDriver;
 		}
 		
-		\Cache::i();
+		$cache = Cache::instance();
+		$cache->setDriver($driver);
 	}
 	
 	public function isProvided(){
-		return class_exists('Cache', false);
+		return true;
 	}
 	
 }
