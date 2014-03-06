@@ -3,14 +3,11 @@
 namespace Phpf\Cache\Driver;
 
 use Phpf\Cache\Cache;
+use Phpf\Util\Str;
 
 class StaticDriver extends AbstractDriver {
 	
 	protected $cache = array();
-	
-	public function getEngine(){
-		return 'static';
-	}
 	
 	public function getPrefix( $group = Cache::DEFAULT_GROUP ){
 		return $group;
@@ -22,11 +19,11 @@ class StaticDriver extends AbstractDriver {
 	
 	public function get( $id, $group = Cache::DEFAULT_GROUP ){
 		if ( ! empty($this->cache[$group]) && $this->exists($id, $group) )
-			return maybe_unserialize( $this->cache[ $group ][ $id ] );
+			return Str::maybeUnserialize( $this->cache[ $group ][ $id ] );
 	}
 	
 	public function set( $id, $value, $group = Cache::DEFAULT_GROUP, $ttl = Cache::DEFAULT_TTL ){
-		$this->cache[ $group ][ $id ] = maybe_serialize($value);
+		$this->cache[ $group ][ $id ] = Str::maybeSerialize($value);
 	}
 	
 	public function delete( $id, $group = self::DEFAULT_GROUP ){

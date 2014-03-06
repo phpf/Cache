@@ -3,12 +3,9 @@
 namespace Phpf\Cache\Driver;
 
 use Phpf\Cache\Cache;
+use Phpf\Util\Str;
 
 class XCacheDriver extends AbstractDriver {
-	
-	public function getEngine(){
-		return 'xcache';	
-	}
 	
 	public function getPrefix( $group = Cache::DEFAULT_GROUP ){
 		
@@ -28,7 +25,7 @@ class XCacheDriver extends AbstractDriver {
 		
 		$value = xcache_get( $this->getPrefix($group) . $id );	
 		
-		if ( is_serialized($value) ){
+		if ( Str::isSerialized($value) ){
 			$unserializer = $this->unserializer;
 			$value = $unserializer($value);
 		}
