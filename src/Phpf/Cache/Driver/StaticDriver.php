@@ -9,6 +9,10 @@ class StaticDriver extends AbstractDriver {
 	
 	protected $cache = array();
 	
+	public function getEngine(){
+		return 'php';
+	}
+	
 	public function getPrefix( $group = Cache::DEFAULT_GROUP ){
 		return $group;
 	}

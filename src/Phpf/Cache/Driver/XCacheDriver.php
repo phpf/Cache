@@ -7,6 +7,10 @@ use Phpf\Util\Str;
 
 class XCacheDriver extends AbstractDriver {
 	
+	public function getEngine(){
+		return 'xcache';
+	}
+	
 	public function getPrefix( $group = Cache::DEFAULT_GROUP ){
 		
 		return $this->prefix . $group . '|';
