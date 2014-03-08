@@ -29,9 +29,9 @@ class XCacheDriver extends AbstractDriver {
 		
 		$value = xcache_get( $this->getPrefix($group) . $id );	
 		
-		if ( Str::isSerialized($value) ){
-			$unserializer = $this->unserializer;
-			$value = $unserializer($value);
+		if ( Str::isSerialized($value, false) ){
+			#$unserializer = $this->unserializer;
+			$value = unserialize($value);
 		}
 		
 		return $value;
@@ -39,9 +39,9 @@ class XCacheDriver extends AbstractDriver {
 		
 	public function set( $id, $value, $group = Cache::DEFAULT_GROUP, $ttl = Cache::DEFAULT_TTL ){
 		
-		if ( is_object($value) ){
-			$serializer = $this->serializer;
-			$value = $serializer($value);
+		if ( is_array($value) || is_object($value) ){
+			#$serializer = $this->serializer;
+			$value = serialize($value);
 		}
 		
 		return xcache_set( $this->getPrefix($group) . $id, $value, $ttl );		
