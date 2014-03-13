@@ -2,9 +2,11 @@
 
 namespace Phpf\Cache;
 
-class Cache {
+use Phpf\Util\Singleton;
+
+class Cache implements Singleton {
 	
-	const DEFAULT_TTL = 1800; // 3 hrs
+	const DEFAULT_TTL = 172800; // 2 days
 	
 	const DEFAULT_GROUP = 'default';
 	
