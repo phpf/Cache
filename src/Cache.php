@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpf\Cache;
+namespace xpl\Cache;
 
-use Phpf\Common\SingletonInterface;
-use Phpf\Cache\Driver\CacheDriverInterface;
+use xpl\Cache\Driver\CacheDriverInterface;
 
-class Cache implements SingletonInterface
+class Cache
 {
+	use \xpl\Common\Singleton;
 	
 	/**
 	 * Default TTL (2 days)
@@ -22,27 +22,23 @@ class Cache implements SingletonInterface
 
 	/**
 	 * Cache driver
-	 * @var \Phpf\Cache\Driver\CacheDriverInterface
+	 * @var \Cache\Driver\CacheDriverInterface
 	 */
 	protected $driver;
 	
-	/**
-	 * Singleton instance.
-	 * @var \Phpf\Cache
-	 */
-	protected static $instance;
-
-	final public static function instance() {
-		if (! isset(static::$instance))
-			static::$instance = new static();
-		return static::$instance;
+	public function start() {
+		if (! isset($this->driver)) {
+			$factory = new Driver\Factory();
+			$this->setDriver($factory->create());
+		}
 	}
-
-	protected function __construct() {
-	}
-
+	
 	public function setDriver(CacheDriverInterface $driver) {
 		$this->driver = $driver;
+	}
+	
+	public function getDriver() {
+		return $this->driver;
 	}
 
 	public function getPrefix($group = self::DEFAULT_GROUP) {

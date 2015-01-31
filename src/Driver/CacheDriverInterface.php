@@ -1,12 +1,10 @@
 <?php
 
-namespace Phpf\Cache\Driver;
+namespace xpl\Cache\Driver;
 
-use Phpf\Cache\Cache;
+use xpl\Cache\Cache;
 
 interface CacheDriverInterface {
-	
-	public function getEngine();
 	
 	public function getPrefix($group = Cache::DEFAULT_GROUP);
 	

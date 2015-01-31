@@ -1,17 +1,12 @@
 <?php
 
-namespace Phpf\Cache\Driver;
+namespace xpl\Cache\Driver;
 
-use Phpf\Cache\Cache;
+use xpl\Cache\Cache;
 
-class StaticDriver extends AbstractDriver
+class MemoryDriver extends AbstractDriver
 {
-
 	protected $cache = array();
-
-	public function getEngine() {
-		return 'php';
-	}
 
 	public function getPrefix($group = Cache::DEFAULT_GROUP) {
 		return $group;

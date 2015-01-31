@@ -4,43 +4,43 @@ namespace xpl\Cache\Driver;
 
 use xpl\Cache\Cache;
 
-class XCacheDriver extends AbstractDriver
+class ApcDriver extends AbstractDriver
 {
 
 	public function exists($id, $group = Cache::DEFAULT_GROUP) {
-		return xcache_isset($this->getPrefix($group).$id);
+		return apc_exists($this->getPrefix($group).$id);
 	}
 
 	public function getGroup($group = Cache::DEFAULT_GROUP) {
-		return xcache_get($this->getPrefix($group));
+		return apc_fetch($this->getPrefix($group));
 	}
 
 	public function get($id, $group = Cache::DEFAULT_GROUP) {
-		return xcache_get($this->getPrefix($group).$id);
+		return apc_fetch($this->getPrefix($group).$id);
 	}
 
 	public function set($id, $value, $group = Cache::DEFAULT_GROUP, $ttl = Cache::DEFAULT_TTL) {
-		return xcache_set($this->getPrefix($group).$id, $value, $ttl);
+		return apc_store($this->getPrefix($group).$id, $value, $ttl);
 	}
 
 	public function delete($id, $group = Cache::DEFAULT_GROUP) {
-		return xcache_unset($this->getPrefix($group).$id);
+		return apc_delete($this->getPrefix($group).$id);
 	}
 
 	public function incr($id, $val = 1, $group = Cache::DEFAULT_GROUP, $ttl = Cache::DEFAULT_TTL) {
-		return xcache_inc($this->getPrefix($group).$id, $val, $ttl);
+		return apc_inc($this->getPrefix($group).$id, $val);
 	}
 
 	public function decr($id, $val = 1, $group = Cache::DEFAULT_GROUP, $ttl = Cache::DEFAULT_TTL) {
-		return xcache_dec($this->getPrefix($group).$id, $val, $ttl);
+		return apc_dec($this->getPrefix($group).$id, $val);
 	}
 
 	public function flush() {
-		return xcache_unset_by_prefix($this->prefix);
+		return apc_delete($this->prefix);
 	}
 
 	public function flushGroup($group) {
-		return xcache_unset_by_prefix($this->getPrefix($group));
+		return apc_delete($this->getPrefix($group));
 	}
-
+	
 }
